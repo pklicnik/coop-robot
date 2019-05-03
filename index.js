@@ -29,7 +29,7 @@ const _doFetchDocument = (payload) => {
   formData.append('applicationId', payload.applicationId);
   formData.append('rand', Math.floor(Math.random() * 100000));
 
-  return fetch("https://waterlooworks.uwaterloo.ca/myAccount/co-op/coopApplications.htm",
+  return fetch(window.location.href,
     {
       body: formData,
       method: "post"
@@ -38,9 +38,9 @@ const _doFetchDocument = (payload) => {
     .then(_showFile)
 }
 
-const fetchPackages = async () => {
+const fetchPackages = async (columnNum) => {
   const table = document.getElementById("na_jobApplications_employerTableID");
-  const links = table.querySelectorAll("tr > td:nth-of-type(3) .dropdown-menu > li:first-of-type > a");
+  const links = table.querySelectorAll(`tr > td:nth-of-type(${columnNum}) .dropdown-menu > li:first-of-type > a`);
   for (let i = 0; i < links.length; i++) {
     const item = links[i];
     const click = item.getAttribute("onclick");
@@ -57,5 +57,3 @@ const fetchPackages = async () => {
     }
   }
 }
-
-fetchPackages();
